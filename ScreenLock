@@ -1,0 +1,52 @@
+/* System Programming
+ScreenLock*/
+#include <iostream>
+#include <limits>
+void getIn(int &pin) { 				   // function to get pin from User
+	std::cout << "+-----------------------------------------------+"<< '\n';
+	std::cout << "|        https://github.com/ByteCrafter99       |"<< '\n';
+	std::cout << "+-----------------------------------------------+"<< '\n';
+	while (true) {
+					std::cout << "\nSet PIN 4-6 digits: ";
+					std::cin >> pin;
+					if (std::cin.fail()) {    // checking if given input failed
+									std::cin.clear();   // clearing error 
+						   fflush(stdin);
+									std::cout << "Invalid input! Please enter a numeric PIN.\n";
+					} 
+					else if (pin < 1000 || pin > 999999) { 
+									std::cout << "PIN must be between 4 to 6 digits. Try again.\n";
+					} 
+					else {
+									break;    // Stops execution if above conditions true
+					}
+	}
+	std::cout << "PIN Saved Successfully!\n";
+}
+bool checkPin(int pin) {        // function to verify the pin
+	int userInput;
+	int attempts = 0;
+	std::cout << "\nEnter PIN: ";
+	    while (true) {
+					std::cin >> userInput;
+					if(std::cin.fail()) {
+									std::cin.clear(); 
+								 fflush(stdin);
+									std::cout << "Invalid input. Only numeric value accepted ";
+									continue;
+					}
+					if (userInput == pin) {   // verifing current pin equals to the stored pin
+									std::cout << "Device Unlocked\n";
+									return true;
+					}
+					attempts++;          // incrementing attempt counter if pin is wrong 
+					std::cout << "Wrong PIN. Try again: ";
+					std::cout << "You have made " << attempts << " attempt(s) to unlock the screen\n";
+	}
+}
+int main(){
+	int pin;
+	getIn(pin);
+	checkPin(pin);
+	return 0;
+} 
